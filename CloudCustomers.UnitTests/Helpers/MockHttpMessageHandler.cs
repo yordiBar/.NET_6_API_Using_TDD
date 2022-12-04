@@ -30,5 +30,28 @@ namespace CloudCustomers.UnitTests.Helpers
 
             return handlerMock;
         }
+
+        internal static Mock<HttpMessageHandler> SetupReturn404()
+        {
+            var mockResponse = new HttpResponseMessage(HttpStatusCode.NotFound)
+            {
+                Content = new StringContent("")
+            };
+
+            mockResponse.Content.Headers.ContentType =
+                new MediaTypeHeaderValue("application/json");
+
+            var handlerMock = new Mock<HttpMessageHandler>();
+
+            handlerMock
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(mockResponse);
+
+            return handlerMock;
+        }
     }
 }
