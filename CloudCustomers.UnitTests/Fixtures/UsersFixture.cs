@@ -39,6 +39,6 @@ namespace CloudCustomers.UnitTests.Fixtures
                         Zipcode = "7456"
                     }
                 }
-        }
+        };
     }
 }
